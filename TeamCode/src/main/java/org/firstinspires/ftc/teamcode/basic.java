@@ -1,6 +1,9 @@
+package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "basic (Blocks to Java)")
 public class basic extends LinearOpMode {
@@ -10,15 +13,9 @@ public class basic extends LinearOpMode {
     private DcMotor BL;
     private DcMotor FL;
 
-    /**
-     * This sample contains the bare minimum Blocks for any regular OpMode. The 3 blue
-     * Comment Blocks show where to place Initialization code (runs once, after touching the
-     * DS INIT button, and before touching the DS Start arrow), Run code (runs once, after
-     * touching Start), and Loop code (runs repeatedly while the OpMode is active, namely not
-     * Stopped).
-     */
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
+
         BR = hardwareMap.get(DcMotor.class, "BR");
         FR = hardwareMap.get(DcMotor.class, "FR");
         BL = hardwareMap.get(DcMotor.class, "BL");
@@ -28,19 +25,30 @@ public class basic extends LinearOpMode {
         FR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         FL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        BL.setDirection(DcMotorSimple.Direction.REVERSE);
+        FL.setDirection(DcMotorSimple.Direction.REVERSE);
+
         waitForStart();
-        if (opModeIsActive()) {
-            // Put run blocks here.
-            while (opModeIsActive()) {
-                BR.setPower(1);
-                FR.setPower(1);
-                BL.setPower(1);
-                FL.setPower(1);
-            }
-        }
+
+
+        BR.setPower(1);
+        FR.setPower(1);
+        BL.setPower(1);
+        FL.setPower(1);
+
+        Thread.sleep(1000);
+
+        BR.setPower(0);
+        FR.setPower(0);
+        BL.setPower(0);
+        FL.setPower(0);
+
+
     }
 }
